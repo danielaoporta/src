@@ -7,95 +7,156 @@ int contadorg=0;
 void main(void) {
     //DECLARACION REGISTROS
     TRISIO = 0b00100000;
-    //PINES EN OUTPUT>1,2,3,4,6,7,8
-    //PINES EN INPUT>5
+    GP3=0;
     ANSEL = 0; 
     unsigned int time = 100; 
 
     //PRUEBA PARA LIMITE DE INTENTOS
     //############PREGUNTAR####################
 
-    GPIO = 0b00001001; 
-    //delay(time);
+    
     //delay(1000);
-
+        GP0=0;
+        GP1=0;
+        GP2=0;
+        GP4=0;
+        
         ejecucion();
+        
 
 }
 
 void ejecucion()
 {       unsigned int time = 100; 
-        unsigned int random = 0; 
+        //int random = 0; 
         int contador=0;
         
-        while ( 1 ) {
         
-        //opciones de numeros infinitas entre el 0 y el 9
-        for (random = 0; random < 10; random++){
-            GP4 = 0;            
-            if(GP5 == 1)
-                { 
-                
-                switch (random)
-                { 
-                    case 1:
-                        GPIO = 0b00000001; // Enciende PIN 0
-                        delay(time);
-                        contador++;
-                        break;
-                    case 2:
-                        GPIO = 0b00000010; // Enciende PIN 1
-                        delay(time);
-                        contador++;
-                        break;
-                    case 3:
-                        GPIO = 0b00000011; // Enciende PIN 0, 1
-                        delay(time);
-                        contador++;
-                        break;
-                    case 4:
-                        GPIO = 0b00000100; // Enciende PIN 2
-                        delay(time);
-                        break;
-                    case 5:
-                        GPIO = 0b00000101; // Enciende PIN 0, PIN 2
-                        delay(time);
-                        contador++;
-                        break;
-                    case 6:
-                        GPIO = 0b00000110; // Enciende PIN 2 y 1
-                        delay(time);
-                        contador++;
-                        break;
-                    case 7:
-                        GPIO = 0b00000111; // Enciende PIN 0, PIN 1, PIN 2 y
-                        delay(time);
-                        contador++;
-                        break;
-                    case 8:
-                        GPIO = 0b00001000; 
-                        delay(time);
-                        contador++;
-                        break;
-                    case 9:
-                        GPIO = 0b00001001; 
-                        delay(time);
-                        contador++;
-                        break;
-                    default:
-                        GPIO = 0b00000000;
-                        contador++;
-                        delay(time);
-                        break;
-                
-                }
-                
-                
-                
-            }  
-        
+            while ( 1 ) 
+                {
+                    
+                    while(contador<17)
+                    {
+                        //opciones de numeros infinitas entre el 0 y el 9
+                        for (int random = 0; random < 100; random++){
+                            GP4 = 0;            
+                            if(GP5 == 1)
+                                { 
+                                int unidad = random%10;
+                                int dec = (int)random/10;
+                                
+                                contador+=1;
+                                switch (dec)
+                                { 
+                                    case 0:
+                                        GP0=0;
+                                        GP1=0;
+                                        GP2=0;
+                                        GP4=0;
+                                        delay(time);
+                                        
+                                        break;
+                                    case 1:
+                                        
+                                        GP0=1;
+                                        GP1=0;
+                                        GP2=0;
+                                        GP4=0;
+                                        delay(time);
+                                        
+                                        break;
+                                    case 2:
+                                        GP0=0;
+                                        GP1=1;
+                                        GP2=0;
+                                        GP4=0;
+                                        delay(time);
+                                        
+                                        break;
+                                    case 3:
+                                        GP0=1;
+                                        GP1=1;
+                                        GP2=0;
+                                        GP4=0;
+                                        delay(time);
+                                        
+                                        break;
+                                    case 4:
+                                        GP0=0;
+                                        GP1=0;
+                                        GP2=1;
+                                        GP4=0;
+                                        delay(time);
+                                        break;
+                                    case 5:
+                                        GP0=1;
+                                        GP1=0;
+                                        GP2=1;
+                                        GP4=0;
+                                        delay(time);
+                                        
+                                        break;
+                                    case 6:
+                                        GP0=0;
+                                        GP1=1;
+                                        GP2=1;
+                                        GP4=0;
+                                        delay(time);
+                                        
+                                        break;
+                                    case 7:
+                                        GP0=1;
+                                        GP1=1;
+                                        GP2=1;
+                                        GP4=0;
+                                        delay(time);
+                                        
+                                        break;
+                                    case 8:
+                                        GP0=0;
+                                        GP1=0;
+                                        GP2=0;
+                                        GP4=1; 
+                                        delay(time);
+                                        
+                                        break;
+                                    case 9:
+                                        GP0=1;
+                                        GP1=0;
+                                        GP2=0;
+                                        GP4=1; 
+                                        delay(time);
+                                        
+                                        break;
+                                    
+                                    default:
+                                        GPIO = 0b00000000;
+                                        
+                                        delay(time);
+                                        break;
+                                
+                                }
+                               
+
+                                
+                                
+                                
+                                
+                            }
+                            
+            
+            }
         }
-    }
+        
+        GP0=1;
+        GP1=0;
+        GP2=0;
+        GP4=1;
+        delay(200);
+        main();
+        break;
+        
+    }    
 }
 
 void delay(unsigned int tiempo)
